@@ -1,0 +1,26 @@
+<nb-card>
+  <nb-card-header>Crear nueva orden</nb-card-header>
+  <nb-card-body>
+    <!--    <form (ngSubmit)="submitForm()">-->
+    <form (ngSubmit)="submitForm()">
+      <div *ngFor="let fruit of fruits; let i = index" class="-border -container">
+        <input nbInput fullWidth placeholder="Nombre" name="name{{i}}" type="text" [(ngModel)]="fruit.name" disabled>
+        <input nbInput fullWidth placeholder="Cantidad" name="quantity{{i}}" type="number" min="1" [(ngModel)]="fruit.quantity">
+        <input nbInput fullWidth placeholder="Precio" name="price{{i}}" type="number" min="1" [(ngModel)]="fruit.price" disabled>
+        <button nbButton (click)="removeFruit(i)" status="danger" size="tiny" class="create-button float-right">x</button>
+      </div>
+
+      <div>
+        <button nbButton type="submit">Enviar</button>
+      </div>
+    </form>
+  </nb-card-body>
+  <nb-card-footer>
+    <div>
+      <nb-select placeholder="Select Showcase" [(selected)]="selectedFruit" (selectedChange)="fruitSelected($event)">
+        <nb-option *ngFor="let fruit of listFruitsForSelected; let i = index" [value]="fruit">{{fruit.name}}</nb-option>
+      </nb-select>
+      <button nbButton status="info" (click)="addFruit()"><nb-icon icon="plus-outline"></nb-icon></button>
+    </div>
+  </nb-card-footer>
+</nb-card>

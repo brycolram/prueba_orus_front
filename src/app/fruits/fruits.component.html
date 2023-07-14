@@ -1,0 +1,48 @@
+<nb-card>
+  <nb-card-header>Listado de Frutas</nb-card-header>
+  <nb-card-body>
+
+    <div>
+      <button nbButton (click)="openCreateModal()" status="success" size="small" class="create-button">Crear Fruta
+      </button>
+    </div>
+    <div class="mt-3">
+      <input type="text" [(ngModel)]="searchText" placeholder="Buscar frutas">
+    </div>
+
+    <table class="table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Cantidad</th>
+        <th>Precio</th>
+        <th>Acciones</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr
+        *ngFor="let fruit of fruits | filter: searchText | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
+        <td>{{ fruit.id }}</td>
+        <td>{{ fruit.name }}</td>
+        <td>{{ fruit.quantity }}</td>
+        <td>{{ fruit.price }}</td>
+        <td>
+          <button nbButton size="small" status="info" class="edit-button" nbTooltip="Editar" nbTooltipStatus="info"
+                  (click)="openEditModal(fruit)">
+            <nb-icon icon="edit-2-outline"></nb-icon>
+          </button>
+          <button nbButton size="small" status="danger" class="delete-button" nbTooltip="Eliminar"
+                  nbTooltipStatus="danger" (click)="deleteFruit(fruit.id)">
+            <nb-icon icon="trash-2-outline"></nb-icon>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+      <div class="pagination-container">
+        <pagination-controls (pageChange)="currentPage = $event" previousLabel="anterior"
+                             nextLabel="siguiente"></pagination-controls>
+      </div>
+    </table>
+  </nb-card-body>
+</nb-card>

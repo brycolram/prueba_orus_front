@@ -1,0 +1,76 @@
+<nb-card>
+  <nb-card-header>Listado de Ordenes</nb-card-header>
+  <nb-card-body>
+
+    <div>
+            <button nbButton (click)="openCreateModal()" status="success" size="small" class="create-button">Crear Orden
+            </button>
+    </div>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Total</th>
+        <th>Descuento</th>
+        <th>Cantidad de productos</th>
+        <th>Acciones</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr
+        *ngFor="let order of orders  | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
+        <td>{{ order.id }}</td>
+        <td>{{ order.total }}</td>
+        <td>{{ order.discount }}</td>
+        <td>{{ order.fruits.length }}</td>
+        <td>
+          <button nbButton size="small" status="info" class="edit-button" nbTooltip="Ver Orden" nbTooltipStatus="info"
+                  (click)="showOrderSelected(order)">
+            <nb-icon icon="eye-outline"></nb-icon>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+      <div class="pagination-container">
+        <pagination-controls (pageChange)="currentPage = $event" previousLabel="anterior"
+                             nextLabel="siguiente"></pagination-controls>
+      </div>
+    </table>
+  </nb-card-body>
+</nb-card>
+<nb-card *ngIf="showOrder">
+  <nb-card-header>Orden no. {{OrdeSelected.id}}</nb-card-header>
+  <nb-card-body>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Cantidad</th>
+        <th>Descuento</th>
+        <th>Precio uni.</th>
+        <th>Total</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr
+        *ngFor="let fruit of OrdeSelected.fruits ">
+        <td>{{ fruit.id }}</td>
+        <td>{{ fruit.name }}</td>
+        <td>{{ fruit.pivot.quantity }}</td>
+        <td>{{ fruit.pivot.discount }}</td>
+        <td>{{ fruit.price }}</td>
+        <td>{{ fruit.pivot.price }}</td>
+      </tr>
+      <tr>
+        <td>Total</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>{{ OrdeSelected.total }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </nb-card-body>
+</nb-card>

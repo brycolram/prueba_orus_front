@@ -1,0 +1,11 @@
+<nb-card>
+  <nb-card-header>{{ editMode ? 'Editar Fruta' : 'Crear Fruta' }}</nb-card-header>
+  <nb-card-body>
+      <input nbInput fullWidth placeholder="Nombre" name="name" type="text" [(ngModel)]="fruit.name">
+      <input nbInput fullWidth placeholder="Cantidad" name="quantity" type="number" min="0" [(ngModel)]="fruit.quantity">
+      <input nbInput fullWidth placeholder="Precio" name="price" type="number" min="1" [(ngModel)]="fruit.price">
+  </nb-card-body>
+  <nb-card-footer>
+    <button nbButton status="success" (click)="saveFruit()">{{ editMode ? 'Guardar' : 'Crear' }}</button>
+  </nb-card-footer>
+</nb-card>
